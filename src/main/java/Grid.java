@@ -8,15 +8,20 @@ public class Grid extends PApplet {
     private int fieldHeight;
     private int marginTopBottom;
     private int marginLeftRight;
+    private int fieldColor;
+    private int selectedFieldColor;
     private boolean fieldsAreSquares;
+    public int[][] colors = new int[getGridWidth()][getGridHeight()];
 
-    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares) {
+    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares, int fieldColor, int selectedFieldColor) {
 
         setGridWidth(gridWidth);
         setGridHeight(gridHeight);
         setMarginTopBottom(marginTopBottom);
         setMarginLeftRight(marginLeftRight);
         setFieldsAreSquares(fieldsAreSquares);
+        setFieldColor(fieldColor);
+        setSelectedFieldColor(selectedFieldColor);
 
         if (width > height && isFieldsAreSquares()) {
 
@@ -33,7 +38,13 @@ public class Grid extends PApplet {
         } else {
 
             setFieldWidth((width - getMarginLeftRight() * 2) / getGridWidth());
-            setFieldHeight((height - getMarginTopBottom() * 2) / setGridHeight());
+            setFieldHeight((height - getMarginTopBottom() * 2) / getGridHeight());
+        }
+
+        for (int i = 0; i < colors.length; i++) {
+            for (int j = 0; j < colors[i].length; j++) {
+                colors[i][j] = getFieldColor();
+            }
         }
 
     }
@@ -94,13 +105,34 @@ public class Grid extends PApplet {
     public void setFieldsAreSquares(boolean fieldsAreSquares) {
         this.fieldsAreSquares = fieldsAreSquares;
     }
+
+    public int getFieldColor() {
+        return fieldColor;
+    }
+
+    public void setFieldColor(int fieldColor) {
+        this.fieldColor = fieldColor;
+    }
+
+    public int getSelectedFieldColor() {
+        return selectedFieldColor;
+    }
+
+    public void setSelectedFieldColor(int selectedFieldColor) {
+        this.selectedFieldColor = selectedFieldColor;
+    }
     //endregion
 
-    public void print(int marginTopBottom, int marginLeftRight) {
+    public void print() {
         for (int i = 0; i < getGridWidth(); i++) {
             for (int j = 0; j < getGridHeight(); j++) {
-                rect(getMarginLeftRight() + );
+                fill(colors[i][j]);
+                rect(getMarginLeftRight() + i * getFieldWidth(),
+                        getMarginTopBottom() + i * getFieldHeight(),
+                        getFieldWidth(),
+                        getFieldHeight());
             }
         }
     }
+
 }

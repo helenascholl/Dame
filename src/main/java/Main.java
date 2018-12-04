@@ -21,9 +21,7 @@ public class Main extends PApplet {
     private int marginTopBottom = 70;
     private int marginLeftRight = 50;
 
-    private boolean fieldsAreSqares = true;
-
-    Grid grid = new Grid(gridWidth, gridHeight, fieldsAreSqares);
+    Grid grid = new Grid(8, 8, 70, 50, true, color(255), color(255, 0, 0));
     //endregion
 
     public static void main(String[] args) {
@@ -50,7 +48,9 @@ public class Main extends PApplet {
 
     public void draw() {
 
-            interpretPressedKey();
+        interpretMouseInput();
+
+            /*interpretPressedKey();
 
             declareGrid();
 
@@ -66,20 +66,22 @@ public class Main extends PApplet {
             drawRobot(player1);
             drawRobot(player2);
 
-            drawText();
+            drawText();*/
 
-            if (frameCount % frameRate == 1) {
-                time--;
+    }
+
+    private void interpretMouseInput() {
+
+            for (int i = 0; i < grid.getGridWidth(); i++) {
+                for (int j = 0; j < grid.getGridHeight(); j++) {
+                    if (mouseX <= grid.getMarginLeftRight() + (i - 1) * grid.getGridWidth()
+                            && mouseX >= grid.getMarginLeftRight() + i * grid.getGridWidth()
+                            && mouseY <= grid.getMarginTopBottom() + (i - 1) * grid.getGridHeight()
+                            && mouseY >= grid.getMarginTopBottom() + i * grid.getGridHeight()) {
+                        grid.colors[i][j] = grid.getSelectedFieldColor();
+                    }
+                }
             }
-
-            if (time == -1) {
-
-                gameOver = true;
-                wait = true;
-
-            }
-
-        }
 
     }
 
