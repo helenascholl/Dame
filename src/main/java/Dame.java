@@ -4,19 +4,9 @@ abstract public class Dame extends PApplet {
 
     private int x;
     private int y;
-    private Direction direction;
     private Color color;
 
-    public Dame() {
-        setDirection(Direction.NORTH_WEST);
-        setX(0);
-        setY(0);
-        setColor(Color.BLACK);
-
-    }
-
-    public Dame(int x, int y, Direction direction, Color color) {
-        setDirection(direction);
+    public Dame(int x, int y, Color color) {
         setX(x);
         setY(y);
         setColor(color);
@@ -39,14 +29,6 @@ abstract public class Dame extends PApplet {
         this.y = y;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
     public Color getColor() {
         return color;
     }
@@ -56,9 +38,9 @@ abstract public class Dame extends PApplet {
     }
     //endregion
 
-    public void move() {
+    public void move(Direction direction) {
 
-        switch (getDirection()) {
+        switch (direction) {
 
             case NORTH_WEST:
                 setY(getY() - 1);

@@ -9,19 +9,11 @@ public class Main extends PApplet {
 
     private int frameRate = 60;
 
-    private int gridWidth = 10;
-    private int gridHeight = 10;
-    //private int[][] grid = new int[gridHeight][gridWidth];
-    private int gridColor = color(255);
-
     private int backgroundColor = color(209);
-    private int selectedFieldColor = color(255, 0, 0);
     private int textColor = color(0);
 
-    private int marginTopBottom = 70;
-    private int marginLeftRight = 50;
-
-    Grid grid = new Grid(8, 8, 70, 50, true, color(255), color(255, 0, 0));
+    Grid grid = new Grid(8, 8, 70, 50, true, color(255), color(255, 0, 0), color(200, 0, 0));
+    Dame[] figuresWhite = new Dame[grid.getGridWidth() / 2 * 3];
     //endregion
 
     public static void main(String[] args) {
@@ -43,12 +35,57 @@ public class Main extends PApplet {
         noCursor();
         background(backgroundColor);
         frameRate(frameRate);
+        
+        declareFigures();
 
+    }
+
+    private void declareFigures() {
+
+        int index = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < grid.getGridWidth(); j++) {
+                if (i % 2 == 0) {
+                    if (j % 2 == 0) {
+                        figuresWhite[index++] = new SingleDame(j, i, Color.WHITE);
+                    }
+                } else {
+                    if (j % 2 != 0) {
+                        figuresWhite[index++] = new SingleDame(j, i, Color.WHITE);
+                    }
+                }
+            }
+        }
+        
     }
 
     public void draw() {
 
-        interpretMouseInput();
+        //interpretMouseInput();
+
+        for (int i = 0; i < grid.getGridWidth(); i++) {
+            for (int j = 0; j < grid.getGridHeight(); j++) {
+                fill(grid.colors[i][j]);
+                rect(grid.getMarginLeftRight() + i * grid.getFieldWidth(),
+                        grid.getMarginTopBottom() + i * grid.getFieldHeight(),
+                        grid.getFieldWidth(),
+                        grid.getFieldHeight());
+            }
+        }
+
+        for (int i = 0; i < figuresWhite.length; i++) {
+            if (figuresWhite[i].getColor() == Color.BLACK) {
+                fill(0);
+            } else if (figuresWhite[i].getColor() == Color.WHITE){
+                fill(255);
+            }
+
+            ellipse(grid.getMarginLeftRight() + figuresWhite[i].getX() * grid.getFieldWidth() + grid.getFieldWidth() * 0.5f,
+                    grid.getMarginTopBottom() + figuresWhite[i].getY() * grid.getFieldHeight() + grid.getFieldHeight() * 0.5f,
+                    grid.getFieldWidth() * 0.8f,
+                    grid.getFieldHeight() * 0.8f);
+        }
 
             /*interpretPressedKey();
 
@@ -67,25 +104,45 @@ public class Main extends PApplet {
             drawRobot(player2);
 
             drawText();*/
+            
+            //resetColors();
+
+    }
+
+    private void resetColors() {
+
+        for (int i = 0; i < grid.colors.length; i++) {
+            for (int j = 0; j < grid.colors[i].length; j++) {
+                if (grid.colors[i][j] == grid.getHoverColor()) {
+                    grid.colors[i][j] = grid.getFieldColor();
+                }
+            }
+        }
 
     }
 
     private void interpretMouseInput() {
 
-            for (int i = 0; i < grid.getGridWidth(); i++) {
-                for (int j = 0; j < grid.getGridHeight(); j++) {
-                    if (mouseX <= grid.getMarginLeftRight() + (i - 1) * grid.getGridWidth()
-                            && mouseX >= grid.getMarginLeftRight() + i * grid.getGridWidth()
-                            && mouseY <= grid.getMarginTopBottom() + (i - 1) * grid.getGridHeight()
-                            && mouseY >= grid.getMarginTopBottom() + i * grid.getGridHeight()) {
-                        grid.colors[i][j] = grid.getSelectedFieldColor();
+            for (int i = 0; i < grid.colors.length; i++) {
+                for (int j = 0; j < grid.colors[i].length; j++) {
+                    boolean mouseIsOverField = mouseX <= grid.getMarginLeftRight() + i * grid.getGridWidth()
+                            && mouseX >= grid.getMarginLeftRight() + (i + 1) * grid.getGridWidth()
+                            && mouseY <= grid.getMarginTopBottom() + i * grid.getGridHeight()
+                            && mouseY >= grid.getMarginTopBottom() + (i + 1) * grid.getGridHeight();
+
+                    if (mouseIsOverField) {
+                        if (mousePressed) {
+                            grid.colors[i][j] = grid.getSelectedFieldColor();
+                        } else {
+                            grid.colors[i][j] = grid.getHoverColor();
+                        }
                     }
                 }
             }
 
     }
 
-    private void checkForCollision(Robot robot1, Robot robot2) {
+    /*private void checkForCollision(Robot robot1, Robot robot2) {
 
         boolean isBoxCollision = false;
 
@@ -119,9 +176,9 @@ public class Main extends PApplet {
 
         }
 
-    }
+    }*/
 
-    private void startScreen() {
+    /*private void startScreen() {
 
         String text = "Move a robot on a grid by pressing [" + (keyStepForwardPlayer1 + "").toUpperCase() + "] or [" + (keyStepForwardPlayer2 + "").toUpperCase() + "] to make a step in the selected direction and [" + (keyRotateLeftPlayer1 + "").toUpperCase() + "] or [" + (keyRotateLeftPlayer2 + "").toUpperCase() + "] to rotate left. The goal is to collect more boxes than your opponent in 60 seconds.";
 
@@ -189,9 +246,9 @@ public class Main extends PApplet {
 
         }
 
-    }
+    }*/
 
-    private void drawText() {
+    /*private void drawText() {
 
         noStroke();
         fill(backgroundColor);
@@ -224,9 +281,9 @@ public class Main extends PApplet {
         textAlign(RIGHT, TOP);
         text("Highscore: " + highscore, width - marginLeftRight / 10, y);
 
-    }
+    }*/
 
-    private void markSelectedField(Robot robot) {
+    /*private void markSelectedField(Robot robot) {
 
         int x = robot.getX();
         int y = robot.getY();
@@ -342,6 +399,6 @@ public class Main extends PApplet {
 
         key = '§';
 
-    }
+    }*/
 
 }

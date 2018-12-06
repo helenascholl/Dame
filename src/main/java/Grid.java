@@ -10,10 +10,11 @@ public class Grid extends PApplet {
     private int marginLeftRight;
     private int fieldColor;
     private int selectedFieldColor;
+    private int hoverColor;
     private boolean fieldsAreSquares;
-    public int[][] colors = new int[getGridWidth()][getGridHeight()];
+    public int[][] colors;
 
-    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares, int fieldColor, int selectedFieldColor) {
+    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares, int fieldColor, int selectedFieldColor, int hoverColor) {
 
         setGridWidth(gridWidth);
         setGridHeight(gridHeight);
@@ -22,8 +23,12 @@ public class Grid extends PApplet {
         setFieldsAreSquares(fieldsAreSquares);
         setFieldColor(fieldColor);
         setSelectedFieldColor(selectedFieldColor);
+        setHoverColor(hoverColor);
 
-        if (width > height && isFieldsAreSquares()) {
+        setFieldWidth(100);
+        setFieldHeight(100);
+
+        /*if (width > height && isFieldsAreSquares()) {
 
             setFieldWidth((height - getMarginTopBottom() * 2) / getGridHeight());
             setFieldHeight(getFieldWidth());
@@ -39,7 +44,9 @@ public class Grid extends PApplet {
 
             setFieldWidth((width - getMarginLeftRight() * 2) / getGridWidth());
             setFieldHeight((height - getMarginTopBottom() * 2) / getGridHeight());
-        }
+        }*/
+
+        colors = new int[getGridWidth()][getGridHeight()];
 
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < colors[i].length; j++) {
@@ -121,6 +128,14 @@ public class Grid extends PApplet {
     public void setSelectedFieldColor(int selectedFieldColor) {
         this.selectedFieldColor = selectedFieldColor;
     }
+
+    public int getHoverColor() {
+        return hoverColor;
+    }
+
+    public void setHoverColor(int hoverColor) {
+        this.hoverColor = hoverColor;
+    }
     //endregion
 
     public void print() {
@@ -134,5 +149,4 @@ public class Grid extends PApplet {
             }
         }
     }
-
 }

@@ -1,11 +1,15 @@
 public class SingleDame extends Dame {
 
+    SingleDame(int x, int y, Color color) {
+        super(x, y, color);
+    }
+
     @Override
     public void print(int fieldWidth, int fieldHeight, int marginTop, int marginLeft) {
 
         if (getColor() == Color.BLACK) {
             fill(0);
-        } else {
+        } else if (getColor() == Color.WHITE){
             fill(255);
         }
 
