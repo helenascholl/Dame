@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="74dc49e1-eac8-4aff-83bf-8ba00dffc5e1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Grid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-    </list>
+    <list default="true" id="74dc49e1-eac8-4aff-83bf-8ba00dffc5e1" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +13,7 @@
     <session id="542040990">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -47,8 +41,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
-              <caret line="116" column="33" selection-start-line="116" selection-start-column="33" selection-end-line="116" selection-end-column="33" />
+            <state relative-caret-position="285">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
@@ -72,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/Grid.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="430">
-              <caret line="167" column="8" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="8" />
+              <caret line="167" selection-start-line="167" selection-end-line="167" />
               <folding>
                 <element signature="n#!!doc;n#getGridWidth#0;n#Grid#0" />
                 <element signature="e#2256#2257#0" expanded="true" />
@@ -253,8 +247,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544171744593" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544171790247" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../assignment09-exam01-nachtermin-schollsebastian" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -311,16 +305,15 @@
       <workItem from="1543610257342" duration="729000" />
       <workItem from="1543784844747" duration="1290000" />
       <workItem from="1544116210083" duration="6043000" />
-      <workItem from="1544170839276" duration="893000" />
+      <workItem from="1544170839276" duration="1033000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11495000" />
+    <option name="totallyTimeSpent" value="11635000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1053" extended-state="4" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16768125" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -341,7 +334,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50056756" side_tool="true" weight="0.32963374" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.32962137" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32962137" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -444,7 +437,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
-          <caret line="167" column="8" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="8" />
+          <caret line="167" selection-start-line="167" selection-end-line="167" />
           <folding>
             <element signature="n#!!doc;n#getGridWidth#0;n#Grid#0" />
             <element signature="e#2256#2257#0" expanded="true" />
@@ -493,8 +486,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="116" column="33" selection-start-line="116" selection-start-column="33" selection-end-line="116" selection-end-column="33" />
+        <state relative-caret-position="285">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
