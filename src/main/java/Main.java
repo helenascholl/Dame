@@ -3,17 +3,21 @@ import processing.core.PApplet;
 public class Main extends PApplet {
 
     //region Member-Variables
-    private boolean fullScreen = true;
-    private int windowWidth = 800;
-    private int windowHeight = 600;
+    private final boolean fullScreen = true;
+    private final int display = 2;
+    private final int windowWidth = 700;
+    private final int windowHeight = 800;
 
     private int frameRate = 60;
 
     private int backgroundColor = color(209);
     private int textColor = color(0);
 
-    Grid grid = new Grid(8, 8, 70, 50, true, new int[] {color(255), color(0)}, color(255, 0, 0), color(200, 0, 0));
-    Dame[] figuresWhite = new Dame[grid.getGridWidth() / 2 * 3];
+    private boolean firstTime = true;
+
+    private Grid grid;
+    private Dame[] figuresWhite;
+    private Dame[] figuresBlack;
     //endregion
 
     public static void main(String[] args) {
@@ -23,7 +27,7 @@ public class Main extends PApplet {
     public void settings() {
 
         if (fullScreen) {
-            fullScreen();
+            fullScreen(display);
         } else {
             size(windowWidth, windowHeight);
         }
@@ -32,10 +36,13 @@ public class Main extends PApplet {
 
     public void setup() {
 
-        noCursor();
         background(backgroundColor);
         frameRate(frameRate);
-        
+
+        grid = new Grid(8, 8, 70, 50, new int[]{color(255), color(0)}, color(255, 0, 0), color(200, 0, 0));
+        figuresWhite = new Dame[grid.getGridWidth() / 2 * 3];
+        figuresBlack = new Dame[figuresWhite.length];
+
         declareFigures();
 
     }
@@ -48,11 +55,15 @@ public class Main extends PApplet {
             for (int j = 0; j < grid.getGridWidth(); j++) {
                 if (i % 2 == 0) {
                     if (j % 2 == 0) {
-                        figuresWhite[index++] = new SingleDame(j, i, Color.WHITE);
+                        figuresWhite[index] = new SingleDame(j, i, Color.WHITE);
+                    } else {
+                        figuresBlack[index++] = new SingleDame(j, grid.getGridHeight() - i - 1, Color.BLACK);
                     }
                 } else {
                     if (j % 2 != 0) {
                         figuresWhite[index++] = new SingleDame(j, i, Color.WHITE);
+                    } else {
+                        figuresBlack[index] = new SingleDame(j, grid.getGridHeight() - i - 1, Color.BLACK);
                     }
                 }
             }
@@ -62,29 +73,20 @@ public class Main extends PApplet {
 
     public void draw() {
 
-        //interpretMouseInput();
+        resetColors();
 
-        for (int i = 0; i < grid.getGridWidth(); i++) {
-            for (int j = 0; j < grid.getGridHeight(); j++) {
-                fill(grid.colors[i][j]);
-                rect(grid.getMarginLeftRight() + i * grid.getFieldWidth(),
-                        grid.getMarginTopBottom() + j * grid.getFieldHeight(),
-                        grid.getFieldWidth(),
-                        grid.getFieldHeight());
-            }
+        if (firstTime) {
+            declareFields();
+            firstTime = false;
         }
 
-        for (int i = 0; i < figuresWhite.length; i++) {
-            if (figuresWhite[i].getColor() == Color.BLACK) {
-                fill(0);
-            } else if (figuresWhite[i].getColor() == Color.WHITE){
-                fill(255);
-            }
+        interpretMouseInput();
 
-            ellipse(grid.getMarginLeftRight() + figuresWhite[i].getX() * grid.getFieldWidth() + grid.getFieldWidth() * 0.5f,
-                    grid.getMarginTopBottom() + figuresWhite[i].getY() * grid.getFieldHeight() + grid.getFieldHeight() * 0.5f,
-                    grid.getFieldWidth() * 0.8f,
-                    grid.getFieldHeight() * 0.8f);
+        printGrid();
+
+        for (int i = 0; i < figuresWhite.length; i++) {
+            print(figuresWhite[i]);
+            print(figuresBlack[i]);
         }
 
             /*interpretPressedKey();
@@ -104,8 +106,25 @@ public class Main extends PApplet {
             drawRobot(player2);
 
             drawText();*/
-            
-            //resetColors();
+
+    }
+
+    private void declareFields() {
+
+        if (width > height) {
+
+            grid.setFieldSize((height - grid.getMarginTopBottom() * 2) / grid.getGridHeight());
+            grid.setMarginLeftRight((width - grid.getFieldSize() * grid.getGridWidth()) / 2);
+
+        } else if (width < height) {
+
+            grid.setFieldSize((width - grid.getMarginLeftRight() * 2) / grid.getGridWidth());
+            grid.setMarginTopBottom((height - grid.getFieldSize() * grid.getGridHeight()) / 2);
+
+        } else {
+
+            grid.setFieldSize((width - grid.getMarginLeftRight() * 2) / grid.getGridWidth());
+        }
 
     }
 
@@ -114,7 +133,7 @@ public class Main extends PApplet {
         for (int i = 0; i < grid.colors.length; i++) {
             for (int j = 0; j < grid.colors[i].length; j++) {
                 if (grid.colors[i][j] == grid.getHoverColor()) {
-                    grid.reset();
+                    grid.setField(i, j);
                 }
             }
         }
@@ -123,8 +142,31 @@ public class Main extends PApplet {
 
     private void interpretMouseInput() {
 
-            for (int i = 0; i < grid.colors.length; i++) {
-                for (int j = 0; j < grid.colors[i].length; j++) {
+        boolean keepRunning = true;
+
+        for (int i = 0; i < grid.colors.length && keepRunning; i++) {
+            for (int j = 0; j < grid.colors[i].length; j++) {
+                if (grid.colors[i][j] == grid.getSelectedFieldColor()) {
+
+
+                    keepRunning = false;
+                } else {
+                    if (mousePressed) {
+                        for (int k = 0; k < figuresWhite.length; k++) {
+                            colorSelectedField(figuresWhite[k]);
+                            colorSelectedField(figuresBlack[k]);
+                        }
+                    } else {
+                        for (int k = 0; k < figuresWhite.length; k++) {
+                            colorHoveredField(figuresWhite[k]);
+                            colorHoveredField(figuresBlack[k]);
+                        }
+                    }
+                }
+            }
+        }
+
+                /*for (int j = 0; j < figuresWhite[i].length; j++) {
                     boolean mouseIsOverField = mouseX <= grid.getMarginLeftRight() + i * grid.getGridWidth()
                             && mouseX >= grid.getMarginLeftRight() + (i + 1) * grid.getGridWidth()
                             && mouseY <= grid.getMarginTopBottom() + i * grid.getGridHeight()
@@ -137,8 +179,66 @@ public class Main extends PApplet {
                             grid.colors[i][j] = grid.getHoverColor();
                         }
                     }
-                }
+                }*/
+
+
+
+    }
+
+    private void colorSelectedField(Dame figure) {
+        if (mouseX > figure.getX() * grid.getFieldSize() + grid.getMarginLeftRight()
+                && mouseX < (figure.getX() + 1) * grid.getFieldSize() + grid.getMarginLeftRight()
+                && mouseY > figure.getY() * grid.getFieldSize() + grid.getMarginTopBottom()
+                && mouseY < (figure.getY() + 1) * grid.getFieldSize() + grid.getMarginTopBottom()) {
+            if (grid.colors[figure.getX()][figure.getY()] == grid.getSelectedFieldColor()) {
+                grid.setField(figure.getX(), figure.getY());
+            } else {
+                grid.colors[figure.getX()][figure.getY()] = grid.getSelectedFieldColor();
             }
+            delay(150);
+        }
+    }
+
+    private void colorHoveredField(Dame figure) {
+        if (mouseX > figure.getX() * grid.getFieldSize() + grid.getMarginLeftRight()
+                && mouseX < (figure.getX() + 1) * grid.getFieldSize() + grid.getMarginLeftRight()
+                && mouseY > figure.getY() * grid.getFieldSize() + grid.getMarginTopBottom()
+                && mouseY < (figure.getY() + 1) * grid.getFieldSize() + grid.getMarginTopBottom()
+                && grid.colors[figure.getX()][figure.getY()] != grid.getSelectedFieldColor()) {
+            grid.colors[figure.getX()][figure.getY()] = grid.getHoverColor();
+        }
+    }
+
+    private void printGrid() {
+
+        for (int i = 0; i < grid.getGridWidth(); i++) {
+            for (int j = 0; j < grid.getGridHeight(); j++) {
+                fill(grid.colors[i][j]);
+                rect(grid.getMarginLeftRight() + i * grid.getFieldSize(),
+                        grid.getMarginTopBottom() + j * grid.getFieldSize(),
+                        grid.getFieldSize(),
+                        grid.getFieldSize());
+            }
+        }
+
+    }
+
+    private void print(Dame figure) {
+
+        float x = grid.getMarginLeftRight() + figure.getX() * grid.getFieldSize() + grid.getFieldSize() * 0.5f;
+        float y = grid.getMarginTopBottom() + figure.getY() * grid.getFieldSize() + grid.getFieldSize() * 0.5f;
+
+        if (figure.getColor() == Color.BLACK) {
+            fill(0);
+        } else if (figure.getColor() == Color.WHITE){
+            fill(255);
+        }
+
+        ellipse(x, y, grid.getFieldSize() * 0.8f, grid.getFieldSize() * 0.8f);
+
+        if (figure instanceof DoubleDame) {
+            ellipse(x + grid.getFieldSize() * 0.1f, y + grid.getFieldSize() * 0.1f, grid.getGridWidth() * 0.6f, grid.getFieldSize() * 0.6f);
+        }
 
     }
 

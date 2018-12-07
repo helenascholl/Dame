@@ -66,6 +66,4 @@ abstract public class Dame extends PApplet {
 
     }
 
-    public abstract void print(int fieldWidth, int fieldHeight, int marginTop, int marginLeft);
-
 }
