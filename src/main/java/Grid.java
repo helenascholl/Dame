@@ -25,10 +25,7 @@ public class Grid extends PApplet {
         setSelectedFieldColor(selectedFieldColor);
         setHoverColor(hoverColor);
 
-        setFieldWidth(100);
-        setFieldHeight(100);
-
-        /*if (width > height && isFieldsAreSquares()) {
+        if (width > height && isFieldsAreSquares()) {
 
             setFieldWidth((height - getMarginTopBottom() * 2) / getGridHeight());
             setFieldHeight(getFieldWidth());
@@ -44,7 +41,7 @@ public class Grid extends PApplet {
 
             setFieldWidth((width - getMarginLeftRight() * 2) / getGridWidth());
             setFieldHeight((height - getMarginTopBottom() * 2) / getGridHeight());
-        }*/
+        }
 
         colors = new int[getGridWidth()][getGridHeight()];
 
