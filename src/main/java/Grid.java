@@ -8,20 +8,20 @@ public class Grid extends PApplet {
     private int fieldHeight;
     private int marginTopBottom;
     private int marginLeftRight;
-    private int fieldColor;
+    private int[] fieldColors;
     private int selectedFieldColor;
     private int hoverColor;
     private boolean fieldsAreSquares;
     public int[][] colors;
 
-    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares, int fieldColor, int selectedFieldColor, int hoverColor) {
+    public Grid(int gridWidth, int gridHeight, int marginTopBottom, int marginLeftRight, boolean fieldsAreSquares, int[] fieldColors, int selectedFieldColor, int hoverColor) {
 
         setGridWidth(gridWidth);
         setGridHeight(gridHeight);
         setMarginTopBottom(marginTopBottom);
         setMarginLeftRight(marginLeftRight);
         setFieldsAreSquares(fieldsAreSquares);
-        setFieldColor(fieldColor);
+        setFieldColors(fieldColors);
         setSelectedFieldColor(selectedFieldColor);
         setHoverColor(hoverColor);
 
@@ -48,11 +48,7 @@ public class Grid extends PApplet {
 
         colors = new int[getGridWidth()][getGridHeight()];
 
-        for (int i = 0; i < colors.length; i++) {
-            for (int j = 0; j < colors[i].length; j++) {
-                colors[i][j] = getFieldColor();
-            }
-        }
+        reset();
 
     }
 
@@ -113,12 +109,12 @@ public class Grid extends PApplet {
         this.fieldsAreSquares = fieldsAreSquares;
     }
 
-    public int getFieldColor() {
-        return fieldColor;
+    public int[] getFieldColors() {
+        return fieldColors;
     }
 
-    public void setFieldColor(int fieldColor) {
-        this.fieldColor = fieldColor;
+    public void setFieldColors(int[] fieldColors) {
+        this.fieldColors = fieldColors;
     }
 
     public int getSelectedFieldColor() {
@@ -149,4 +145,27 @@ public class Grid extends PApplet {
             }
         }
     }
+
+    public void reset() {
+
+        for (int i = 0; i < colors.length; i++) {
+            for (int j = 0; j < colors[i].length; j++) {
+                if (i % 2 == 0) {
+                    if (j % 2 == 0) {
+                        colors[i][j] = getFieldColors()[0];
+                    } else {
+                        colors[i][j] = getFieldColors()[1];
+                    }
+                } else {
+                    if (j % 2 == 0) {
+                        colors[i][j] = getFieldColors()[1];
+                    } else {
+                        colors[i][j] = getFieldColors()[0];
+                    }
+                }
+            }
+        }
+
+    }
+
 }

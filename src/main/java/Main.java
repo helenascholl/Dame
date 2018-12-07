@@ -12,7 +12,7 @@ public class Main extends PApplet {
     private int backgroundColor = color(209);
     private int textColor = color(0);
 
-    Grid grid = new Grid(8, 8, 70, 50, true, color(255), color(255, 0, 0), color(200, 0, 0));
+    Grid grid = new Grid(8, 8, 70, 50, true, new int[] {color(255), color(0)}, color(255, 0, 0), color(200, 0, 0));
     Dame[] figuresWhite = new Dame[grid.getGridWidth() / 2 * 3];
     //endregion
 
@@ -68,7 +68,7 @@ public class Main extends PApplet {
             for (int j = 0; j < grid.getGridHeight(); j++) {
                 fill(grid.colors[i][j]);
                 rect(grid.getMarginLeftRight() + i * grid.getFieldWidth(),
-                        grid.getMarginTopBottom() + i * grid.getFieldHeight(),
+                        grid.getMarginTopBottom() + j * grid.getFieldHeight(),
                         grid.getFieldWidth(),
                         grid.getFieldHeight());
             }
@@ -114,7 +114,7 @@ public class Main extends PApplet {
         for (int i = 0; i < grid.colors.length; i++) {
             for (int j = 0; j < grid.colors[i].length; j++) {
                 if (grid.colors[i][j] == grid.getHoverColor()) {
-                    grid.colors[i][j] = grid.getFieldColor();
+                    grid.reset();
                 }
             }
         }
